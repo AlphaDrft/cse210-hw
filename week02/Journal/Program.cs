@@ -37,6 +37,8 @@ class Program
             {
                 journal.DisplayAll();
             }
+
+            // Added error handling for loading a file
             else if (choice == "3")
             {
                 Console.Write("What is the filename? ");

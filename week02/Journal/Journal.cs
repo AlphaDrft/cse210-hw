@@ -29,19 +29,38 @@ public class Journal
     }
     public void LoadFromFile(string filename)
     {
-        string[] lines = System.IO.File.ReadAllLines(filename);
-        _entries.Clear();
-
-        foreach (string line in lines)
+        try
         {
-            string[] parts = line.Split("|");
+            if (!File.Exists(filename))
+            {
+                Console.WriteLine($"Error: The file '{filename}' does not exist.");
+                return;
+            }
+            string[] lines = File.ReadAllLines(filename);
+            _entries.Clear();
 
-            Entry entry = new Entry();
-            entry._date = parts[0];
-            entry._promptText = parts[1];
-            entry._entryText = parts[2];
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split("|");
 
-            _entries.Add(entry);
+                if (parts.Length == 3)
+                {
+                    Entry entry = new Entry();
+                    entry._date = parts[0];
+                    entry._promptText = parts[1];
+                    entry._entryText = parts[2];
+                    _entries.Add(entry);
+                }
+                else
+                {
+                    Console.WriteLine($"Warning: Skipping malformed line: {line}");
+                }
+            }
+            Console.WriteLine("Journal loaded successfully.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while loading the file: {e.Message}");
         }
     }
 }
