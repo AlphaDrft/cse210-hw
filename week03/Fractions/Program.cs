@@ -7,7 +7,7 @@ class Program
 
         Fraction f1 = new Fraction();
 
-        Fraction f2 - new Fraction(5);
+        Fraction f2 = new Fraction(5);
 
         Fraction f3 = new Fraction(3,4);
 
